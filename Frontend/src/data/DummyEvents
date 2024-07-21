@@ -1,0 +1,58 @@
+const dummyEvents = [
+  {
+    _id: '1',
+    title: 'React Conference 2024',
+    description: 'An exciting conference about React and related technologies.',
+    image: '../src/images/react-conference.avif'
+  },
+  {
+    _id: '2',
+    title: 'Node.js Summit 2024',
+    description: 'A summit for Node.js enthusiasts and professionals.',
+    image: '../src/images/nodejs-summit.jpg'
+  },
+  {
+    _id: '3',
+    title: 'MongoDB World 2024',
+    description: 'Learn about the latest in MongoDB technologies.',
+    image: '../src/images/mongodb-world.avif'
+  },
+  {
+    _id: '4',
+    title: 'JavaScript Expo 2024',
+    description: 'Explore the latest trends and technologies in the JavaScript ecosystem.',
+    image: '../src/images/javascript-expo.jpeg'
+  },
+  {
+    _id: '5',
+    title: 'CSS Design Conference 2024',
+    description: 'A conference dedicated to advanced CSS techniques and design patterns.',
+    image: '../src/images/css-design-conference.jpeg'
+  },
+  {
+    _id: '6',
+    title: 'Web Development Bootcamp 2024',
+    description: 'An intensive bootcamp covering full-stack web development.',
+    image: '../src/images/web-development-bootcamp.png'
+  },
+  {
+    _id: '7',
+    title: 'Frontend Masters Workshop 2024',
+    description: 'Hands-on workshops on modern frontend development tools and practices.',
+    image: '../src/images/frontend-masters.jpg'
+  },
+  {
+    _id: '8',
+    title: 'Backend Development Summit 2024',
+    description: 'A summit focused on backend technologies, architecture, and best practices.',
+    image: '../src/images/backend-summit.jpg'
+  },
+  {
+    _id: '9',
+    title: 'Cybersecurity Conference 2024',
+    description: 'A conference focused on the latest trends and technologies in cybersecurity.',
+    image: '../src/images/cybersecurity-conference.jpeg'
+  }
+];
+
+export default dummyEvents;
