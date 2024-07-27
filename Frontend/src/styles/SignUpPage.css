@@ -103,3 +103,17 @@ body {
     text-decoration: underline;
   }
   
+/* CustomToastify.css */
+
+.Toastify__toast {
+  width: 400px; /* Adjust the width as needed */
+}
+.Toastify__toast--success {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.Toastify__toast--error {
+  background-color: #dc3545;
+  color: #fff;
+}
