@@ -5,11 +5,22 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FaUser, FaLock } from "react-icons/fa";
 import '../styles/LoginPage.css';
 
+
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+
+  const decodeJwt = (token) => {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(atob(base64).split('').map((c) => {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+  
+    return JSON.parse(jsonPayload);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,7 +30,15 @@ const LoginPage = () => {
         password,
       });
       console.log('Login successful:', response.data);
-      localStorage.setItem('token', response.data.token);
+      const token = response.data.token;
+      console.log(token)
+      const decodedToken = decodeJwt(token);
+      console.log(decodedToken)
+      const userId = decodedToken.userId;
+      console.log(userId)
+
+      localStorage.setItem('token', token);
+      localStorage.setItem('userId', userId);
       navigate('/');
     } catch (err) {
       setError(err.response?.data?.message || 'Invalid email or password');

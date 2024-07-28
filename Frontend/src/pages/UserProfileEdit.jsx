@@ -1,75 +1,87 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
+import React, { useState } from 'react';
+import '../styles/UserProfileEdit.css'; // Import your CSS file
 
 export default function UserProfileEdit() {
+  const defaultProfilePhoto = 'https://img.freepik.com/premium-vector/avatar-profile-pink-neon-icon-brick-wall-background-colour-neon-vector-icon_549897-254.jpg'
+
+  const [formData, setFormData] = useState({
+    name: '',
+    password: '',
+    email: '',
+    contactNumber: '',
+    profilePhoto: defaultProfilePhoto
+  });
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setFormData({ ...formData, [id]: value });
+  };
+
+  const handlePhotoChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        setFormData({ ...formData, profilePhoto: event.target.result });
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Handle form submission logic
+    console.log('Form submitted:', formData);
+  };
+
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: '100vh',
-        width: '100vw',
-        p: 2,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-      }}
-    >
-      <Box
-        component="form"
-        sx={{
-          '& .MuiTextField-root': { m: 1, width: '25ch' },
-          p: 4,
-          border: '1px solid #ddd',
-          borderRadius: 2,
-          boxShadow: 3,
-          backgroundColor: 'rgba(255, 255, 255, 0.6)', // Semi-transparent white background for the form
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          fontFamily: 'Poppins, sans-serif' // Apply the font family here
-        }}
-        noValidate
-        autoComplete="off"
-      >
-        <TextField
-          required
+    <div className="container">
+      <form className="form" onSubmit={handleSubmit}>
+        <div className="profile-photo-container">
+          <img src={formData.profilePhoto} alt="Profile" className="profile-pic2" />
+          <label htmlFor="profilePhoto" className="upload-button">ADD </label>
+          <input
+            type="file"
+            id="profilePhoto"
+            accept="image/*"
+            onChange={handlePhotoChange}
+            style={{ display: 'none' }}
+          />
+        </div>
+        <input
+          type="text"
           id="name"
-          label="Name"
-        />
-        <TextField
+          placeholder="Name"
+          value={formData.name}
+          onChange={handleChange}
           required
-          id="password"
-          label="New Password"
+        />
+        <input
           type="password"
-        />
-        <TextField
+          id="password"
+          placeholder="New Password"
+          value={formData.password}
+          onChange={handleChange}
+          autoComplete="new-password"
           required
+        />
+        <input
+          type="email"
           id="email"
-          label="Email"
-        />
-        <TextField
+          placeholder="Email"
+          value={formData.email}
+          onChange={handleChange}
           required
-          id="contactNumber"
-          label="Contact Number"
         />
-        <Button
-          variant="contained"
-          color="primary"
-          sx={{
-            backgroundColor: '#1976d2', // Customize the blue color if needed
-            fontSize: '1rem', // Increase font size
-            px: 2, // Increase horizontal padding
-            py: 1, // Increase vertical padding
-            fontFamily: 'Poppins, sans-serif' // Apply the font family here
-          }}
-        >
-          Update
-        </Button>
-      </Box>
-    </Box>
+        <input
+          type="text"
+          id="contactNumber"
+          placeholder="Contact Number"
+          value={formData.contactNumber}
+          onChange={handleChange}
+          required
+        />
+        <button type="submit">Update</button>
+      </form>
+    </div>
   );
 }

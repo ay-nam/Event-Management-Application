@@ -1,29 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/HomePage.css';
-import dummyEvents from '../data/DummyEvents';
+
 
 const HomePage = () => {
-  const [events] = useState(dummyEvents);
+  const [events, setEvents] = useState([]);
+  const userId = "currentUserId"; // Replace with actual logic to get the current user's ID
 
-  const handleLike = (id) => {
-    const updatedEvents = events.map(event => {
-      if (event._id === id) {
-        return { ...event, likes: event.likes + 1 };
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await fetch('http://localhost:4000/api/events');
+        const data = await response.json();
+        setEvents(data);
+      } catch (error) {
+        console.error('Error fetching events:', error);
       }
-      return event;
-    });
-    setEvents(updatedEvents);
-  };
+    };
+    fetchEvents();
+  }, []);
 
-  const handleComment = (id, comment) => {
-    const updatedEvents = events.map(event => {
-      if (event._id === id) {
-        return { ...event, comments: [...event.comments, comment] };
-      }
-      return event;
-    });
-    setEvents(updatedEvents);
+  const handleLike = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:4000/api/events/${id}/like`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+      const updatedEvent = await response.json();
+      setEvents(events.map(event => event._id === id ? updatedEvent : event));
+    } catch (error) {
+      console.error('Error liking event:', error);
+    }
   };
 
   return (
@@ -38,14 +48,19 @@ const HomePage = () => {
             <p>{event.description}</p>
             <div className="event-actions">
               <button onClick={() => handleLike(event._id)}>
-                <img src="../src/assets/heart.png" alt="like" /> {event.likes}
+                <img
+                  src={event.likedBy.includes(userId) ? "../src/assets/heart-filled.png" : "../src/assets/heart-empty.png"}
+                  alt={event.likedBy.includes(userId) ? "liked" : "not liked"}
+                />
+                {event.likes || 0}
               </button>
               <button onClick={() => handleComment(event._id, 'Nice event!')}>
                 <img src="../src/assets/speech-bubble.png" alt="comment" />
               </button>
-              <button><Link to={`/event/${event._id}`} className="button">
-                <img src="../src/assets/visibility.png" alt="view details" />
-              </Link>
+              <button>
+                <Link to={`/event/${event._id}`} className="button">
+                  <img src="../src/assets/visibility.png" alt="view details" />
+                </Link>
               </button>
             </div>
           </div>
@@ -54,5 +69,4 @@ const HomePage = () => {
     </div>
   );
 };
-
 export default HomePage;

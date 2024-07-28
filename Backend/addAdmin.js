@@ -1,4 +1,3 @@
-// addAdmin.js
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 require('dotenv').config();
@@ -14,7 +13,7 @@ mongoose.connect(process.env.MONGO_URI, {
   console.log('Connected to MongoDB');
 
   const adminEmail = 'admin@gmail.com';
-  const adminPassword = 'admin';
+  const adminPassword = '111';
 
   // Check if admin user already exists
   const adminExists = await User.findOne({ email: adminEmail });
@@ -34,6 +33,7 @@ mongoose.connect(process.env.MONGO_URI, {
     email: adminEmail,
     contactNumber: '1234567890',
     password: hashedPassword,
+    isAdmin: true, // Set the isAdmin field to true
   });
 
   await adminUser.save();

@@ -11,6 +11,7 @@ import AdminLogin from './pages/AdminLogin';
 import UserProfileEdit from './pages/UserProfileEdit';
 import Navbar from './components/Navbar';
 
+
 function App() {
   const location = useLocation();
   const hideNavbarFooter = ['/login', '/signup', '/admin-login'].includes(location.pathname);
@@ -26,7 +27,8 @@ function App() {
         <Route path='/login' element={<LoginPage />} />
         <Route path='/admin-login' element={<AdminLogin />} />
         <Route path='/signup' element={<SignUpPage />} />
-        <Route path='/admin-dashboard' element={isAdmin ? <AdminDashboard /> : <Navigate to='/admin-login' />} />
+        <Route path='/admin-dashboard' element={<AdminDashboard/> } />
+        {/* <Route path='/admin-dashboard' element={isAdmin ? <AdminDashboard/> : <Navigate to='/admin-login' />} /> */}
         <Route path='/user-profile' element={isAuthenticated ? <UserProfile /> : <Navigate to='/login' />} />
         <Route path='/event-details' element={isAuthenticated ? <EventDetails /> : <Navigate to='/login' />} />
         <Route path='/user-profile-edit' element={isAuthenticated ? <UserProfileEdit /> : <Navigate to='/login' />} />

@@ -13,7 +13,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   display: flex;
   justify-content: center;
-  align-items: center; /* Add this line to center content vertically */
+  align-items: center; 
 }
 
 code {

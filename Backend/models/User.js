@@ -1,4 +1,3 @@
-// models/User.js
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
@@ -19,6 +18,18 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
+  },
+  isAdmin: {
+    type: Boolean,
+    default: false, // Default to false, set to true for admin users
+  },
+  eventsRegistered: {
+    type: Number,
+    default: 0,
+  },
+  profilePic: {
+    type: String,
+    default:'https://img.freepik.com/premium-vector/avatar-profile-pink-neon-icon-brick-wall-background-colour-neon-vector-icon_549897-254.jpg'
   },
 });
 
