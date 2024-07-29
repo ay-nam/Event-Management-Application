@@ -1,4 +1,3 @@
-// models/Event.js
 const mongoose = require('mongoose');
 
 const EventSchema = new mongoose.Schema({
@@ -21,7 +20,7 @@ const EventSchema = new mongoose.Schema({
   likedBy: [{ 
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'User' 
-  }], // Array to store user IDs who liked the event
+  }],
   comments: [
     {
       text: String,
@@ -31,6 +30,22 @@ const EventSchema = new mongoose.Schema({
       },
     },
   ],
+  date: {
+    type: String,
+    required: true,
+  },
+  time: {
+    type: String,
+    required: true,
+  },
+  location: {
+    type: String,
+    required: true,
+  },
+  organizer: {
+    type: String,
+    required: true,
+  },
 });
 
 module.exports = mongoose.model('Event', EventSchema);

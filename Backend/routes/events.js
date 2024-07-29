@@ -7,10 +7,21 @@ const authenticateToken = require('../middleware/authenticateToken');
 router.get('/', async (req, res) => {
   try {
     const events = await Event.find();
-    console.log(events);
     res.json(events);
   } catch (error) {
-    console.error('Error fetching events:', error); // Log the error
+    console.error('Error fetching events:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+// Fetch event details by ID
+router.get('/:id', async (req, res) => {
+  try {
+    const event = await Event.findById(req.params.id);
+    if (!event) return res.status(404).json({ message: 'Event not found' });
+    res.json(event);
+  } catch (error) {
+    console.error('Error fetching event details:', error);
     res.status(500).json({ message: 'Server error' });
   }
 });
@@ -23,22 +34,18 @@ router.post('/:id/like', authenticateToken, async (req, res) => {
 
     const userId = req.user.userId;
 
-    // Check if user has already liked the event
     if (event.likedBy.includes(userId)) {
-      // User has liked the event, so remove the like
       event.likedBy = event.likedBy.filter(id => id.toString() !== userId.toString());
     } else {
-      // User has not liked the event, so add the like
       event.likedBy.push(userId);
     }
 
-    // Update the likes count
     event.likes = event.likedBy.length;
     await event.save();
 
     res.json(event);
   } catch (error) {
-    console.error('Error liking event:', error); // Log the error
+    console.error('Error liking event:', error);
     res.status(500).json({ message: 'Server error' });
   }
 });
@@ -59,7 +66,7 @@ router.post('/:id/comment', authenticateToken, async (req, res) => {
 
     res.json(event);
   } catch (error) {
-    console.error('Error adding comment:', error); // Log the error
+    console.error('Error adding comment:', error);
     res.status(500).json({ message: 'Server error' });
   }
 });

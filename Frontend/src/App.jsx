@@ -14,7 +14,7 @@ import Navbar from './components/Navbar';
 
 function App() {
   const location = useLocation();
-  const hideNavbarFooter = ['/login', '/signup', '/admin-login'].includes(location.pathname);
+  const hideNavbarFooter = ['/login', '/signup', '/admin-login','/admin-dashboard'].includes(location.pathname);
 
   const isAuthenticated = !!localStorage.getItem('token'); // Check if user is authenticated
   const isAdmin = localStorage.getItem('isAdmin') === 'true'; // Check if user is an admin
@@ -30,7 +30,7 @@ function App() {
         <Route path='/admin-dashboard' element={<AdminDashboard/> } />
         {/* <Route path='/admin-dashboard' element={isAdmin ? <AdminDashboard/> : <Navigate to='/admin-login' />} /> */}
         <Route path='/user-profile' element={isAuthenticated ? <UserProfile /> : <Navigate to='/login' />} />
-        <Route path='/event-details' element={isAuthenticated ? <EventDetails /> : <Navigate to='/login' />} />
+        <Route path='/event/:eventId' element={isAuthenticated ? <EventDetails /> : <Navigate to='/login' />} />
         <Route path='/user-profile-edit' element={isAuthenticated ? <UserProfileEdit /> : <Navigate to='/login' />} />
       </Routes>
       {!hideNavbarFooter && <Footer />}
