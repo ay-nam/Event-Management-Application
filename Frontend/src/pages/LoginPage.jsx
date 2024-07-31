@@ -30,10 +30,8 @@ const LoginPage = () => {
         password,
       });
       console.log('Login successful:', response.data);
-      const token = response.data.token;
-      console.log(token)
+      const token = response.data.token;  
       const decodedToken = decodeJwt(token);
-      console.log(decodedToken)
       const userId = decodedToken.userId;
       console.log(userId)
 

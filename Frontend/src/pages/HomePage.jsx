@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import CommentModal from './Comment'; // Correct import path
 import '../styles/HomePage.css';
-
 
 const HomePage = () => {
   const [events, setEvents] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedEventId, setSelectedEventId] = useState(null);
+  const [comments, setComments] = useState({});
   const userId = "currentUserId"; // Replace with actual logic to get the current user's ID
 
   useEffect(() => {
@@ -36,6 +39,30 @@ const HomePage = () => {
     }
   };
 
+  const handleComment = (id) => {
+    setSelectedEventId(id);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedEventId(null);
+  };
+
+  const addComment = (eventId, newComments) => {
+    setComments(prevComments => ({
+      ...prevComments,
+      [eventId]: newComments
+    }));
+  };
+
+  const deleteComment = (eventId, commentId) => {
+    setComments(prevComments => ({
+      ...prevComments,
+      [eventId]: prevComments[eventId].filter(comment => comment.id !== commentId)
+    }));
+  };
+
   return (
     <div className="homepage">
       <img src="/banner.png" alt="Banner" className="homepage-banner" />
@@ -54,7 +81,7 @@ const HomePage = () => {
                 />
                 {event.likes || 0}
               </button>
-              <button onClick={() => handleComment(event._id, 'Nice event!')}>
+              <button onClick={() => handleComment(event._id)}>
                 <img src="../src/assets/speech-bubble.png" alt="comment" />
               </button>
               <button>
@@ -66,7 +93,16 @@ const HomePage = () => {
           </div>
         ))}
       </div>
+      <CommentModal
+        open={isModalOpen}
+        onClose={handleCloseModal}
+        eventId={selectedEventId}
+        comments={comments}
+        addComment={addComment}
+        deleteComment={deleteComment}
+      />
     </div>
   );
 };
+
 export default HomePage;
