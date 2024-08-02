@@ -29,15 +29,20 @@ const HomePage = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Authorization': `Bearer ${localStorage.getItem('token')}`, // Ensure token is correctly set
         },
       });
+      if (response.status === 403) {
+        console.error('Forbidden: Invalid token or insufficient permissions');
+        return;
+      }
       const updatedEvent = await response.json();
       setEvents(events.map(event => event._id === id ? updatedEvent : event));
     } catch (error) {
       console.error('Error liking event:', error);
     }
   };
+  
 
   const handleComment = (id) => {
     setSelectedEventId(id);
