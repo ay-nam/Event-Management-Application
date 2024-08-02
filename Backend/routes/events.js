@@ -7,7 +7,7 @@ const authenticateToken = require('../middleware/authenticateToken');
 router.get('/', async (req, res) => {
   try {
     const events = await Event.find();
-    console.log(events);
+    // console.log(events);
     res.json(events);
   } catch (error) {
     console.error('Error fetching events:', error); // Log the error
@@ -32,27 +32,31 @@ router.get('/:id', async (req, res) => {
 // Like an event
 router.post('/:id/like', authenticateToken, async (req, res) => {
   try {
-    const event = await Event.findById(req.params.id);
-    if (!event) return res.status(404).json({ message: 'Event not found' });
-
+    const eventId = req.params.id;
     const userId = req.user.userId;
 
-    // Check if user has already liked the event
-    if (event.likedBy.includes(userId)) {
-      // User has liked the event, so remove the like
-      event.likedBy = event.likedBy.filter(id => id.toString() !== userId.toString());
-    } else {
-      // User has not liked the event, so add the like
-      event.likedBy.push(userId);
+    console.log(`User ${userId} is trying to like event ${eventId}`);
+
+    const event = await Event.findById(eventId);
+    if (!event) {
+      console.error(`Event not found: ${eventId}`);
+      return res.status(404).json({ message: 'Event not found' });
     }
 
-    // Update the likes count
-    event.likes = event.likedBy.length;
-    await event.save();
+    console.log(`Event found: ${eventId}`);
 
-    res.json(event);
+     // Check if user has already liked the event
+     const hasLiked = event.likedBy.includes(userId);
+
+     // Update likes and likedBy fields
+     const update = hasLiked
+       ? { $inc: { likes: -1 }, $pull: { likedBy: userId } }
+       : { $inc: { likes: 1 }, $addToSet: { likedBy: userId } };
+
+    const updatedEvent = await Event.findByIdAndUpdate(eventId, update, { new: true });
+    res.json(updatedEvent);
   } catch (error) {
-    console.error('Error liking event:', error); // Log the error
+    console.error('Error liking event:', error.message);
     res.status(500).json({ message: 'Server error' });
   }
 });
@@ -61,7 +65,7 @@ router.post('/:id/like', authenticateToken, async (req, res) => {
 // Add a comment
 router.post('/:id/comment', authenticateToken, async (req, res) => {
   try {
-    const event = await Event.findById(req.params.id);
+    const event = await Event.findById(req.params.userId);
     if (!event) return res.status(404).json({ message: 'Event not found' });
 
     const comment = {

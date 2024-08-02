@@ -3,14 +3,36 @@ import { Link } from 'react-router-dom';
 import CommentModal from './Comment'; // Correct import path
 import '../styles/HomePage.css';
 
+
+
+// Function to decode JWT
+const decodeJwt = (token) => {
+  const base64Url = token.split('.')[1];
+  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  const jsonPayload = decodeURIComponent(atob(base64).split('').map((c) => {
+    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(''));
+
+  return JSON.parse(jsonPayload);
+};
+
+
+
 const HomePage = () => {
   const [events, setEvents] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedEventId, setSelectedEventId] = useState(null);
   const [comments, setComments] = useState({});
-  const userId = "currentUserId"; // Replace with actual logic to get the current user's ID
+  const [userId, setUserId] = useState(null); // Initialize userId state
 
   useEffect(() => {
+     // Decode token to get userId
+     const token = localStorage.getItem('token');
+     if (token) {
+       const decodedToken = decodeJwt(token);
+       setUserId(decodedToken.userId); // Assuming the token has an 'id' field
+     }
+
     const fetchEvents = async () => {
       try {
         const response = await fetch('http://localhost:4000/api/events');
@@ -29,20 +51,18 @@ const HomePage = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`, // Ensure token is correctly set
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
         },
       });
-      if (response.status === 403) {
-        console.error('Forbidden: Invalid token or insufficient permissions');
-        return;
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
       }
       const updatedEvent = await response.json();
       setEvents(events.map(event => event._id === id ? updatedEvent : event));
     } catch (error) {
-      console.error('Error liking event:', error);
+      console.error('Error liking event:', error.message);
     }
   };
-  
 
   const handleComment = (id) => {
     setSelectedEventId(id);
@@ -81,10 +101,9 @@ const HomePage = () => {
             <div className="event-actions">
               <button onClick={() => handleLike(event._id)}>
                 <img
-                  src={event.likedBy.includes(userId) ? "../src/assets/heart-filled.png" : "../src/assets/heart-empty.png"}
+                  src={event.likedBy.includes(userId) ? "../src/assets/heart-fill.png" : "../src/assets/heart-empty.png"}
                   alt={event.likedBy.includes(userId) ? "liked" : "not liked"}
                 />
-                {event.likes || 0}
               </button>
               <button onClick={() => handleComment(event._id)}>
                 <img src="../src/assets/speech-bubble.png" alt="comment" />
