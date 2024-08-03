@@ -1,6 +1,8 @@
-/* UserProfileEdit.css */
 body {
-  font-family: 'Poppins, sans-serif';
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f2f5; /* Soft background color */
 }
 
 .container {
@@ -23,11 +25,11 @@ body {
   border: 1px solid #ddd;
   border-radius: 0.5rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background-color: rgba(255, 255, 255, 0.6);
-  width: 300px; /* Adjust the width as needed */
+  background-color: rgba(255, 255, 255, 0.9);
+  width: 320px; /* Adjust the width as needed */
 }
 
-.profile-photo-container {
+.profile-pic-container {
   position: relative;
   width: 120px; /* Adjust the size as needed */
   height: 120px; /* Adjust the size as needed */
@@ -47,14 +49,14 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(68, 12, 12, 0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   color: white;
   padding: 0.5rem;
   border-radius: 0.25rem;
   cursor: pointer;
   font-size: 0.75rem;
   text-align: center;
-  font-family: 'Poppins, sans-serif';
+  font-family: 'Poppins', sans-serif;
 }
 
 .form input {
@@ -64,11 +66,10 @@ body {
   border: 1px solid #ccc;
   border-radius: 0.25rem;
   font-size: 1rem;
-  font-family: 'Poppins, sans-serif';
-  
+  font-family: 'Poppins', sans-serif;
 }
 
-.form button {
+.update-button {
   margin-top: 1rem;
   padding: 0.75rem 1.5rem;
   background-color: #1976d2;
@@ -77,9 +78,50 @@ body {
   border-radius: 0.25rem;
   font-size: 1rem;
   cursor: pointer;
-  font-family: 'Poppins, sans-serif';
+  font-family: 'Poppins', sans-serif;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.form button:hover {
+.update-button:hover {
   background-color: #155fa0;
+  transform: scale(1.05);
+}
+
+.redirect-link {
+  margin-top: 1rem;
+  color: #1976d2;
+  text-decoration: none;
+  font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
+  transition: color 0.3s ease;
+}
+
+.redirect-link:hover {
+  color: #155fa0;
+}
+
+/* Additional styles for SweetAlert2 */
+.swal2-popup {
+  font-size: 1rem !important;
+  font-family: 'Poppins', sans-serif;
+  border-radius: 0.5rem !important;
+}
+
+.swal2-title {
+  font-size: 1.5rem !important;
+}
+
+.swal2-confirm {
+  background-color: #1976d2 !important;
+  color: white !important;
+  font-size: 1rem !important;
+  font-family: 'Poppins', sans-serif;
+  border: none !important;
+  border-radius: 0.25rem !important;
+  padding: 0.5rem 1rem !important;
+  cursor: pointer !important;
+}
+
+.swal2-confirm:hover {
+  background-color: #155fa0 !important;
 }

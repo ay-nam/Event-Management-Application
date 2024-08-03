@@ -104,6 +104,8 @@ const HomePage = () => {
                   src={event.likedBy.includes(userId) ? "../src/assets/heart-fill.png" : "../src/assets/heart-empty.png"}
                   alt={event.likedBy.includes(userId) ? "liked" : "not liked"}
                 />
+                
+                {event.likes || 0}
               </button>
               <button onClick={() => handleComment(event._id)}>
                 <img src="../src/assets/speech-bubble.png" alt="comment" />

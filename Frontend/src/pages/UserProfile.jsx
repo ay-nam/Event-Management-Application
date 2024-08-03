@@ -16,7 +16,7 @@ const UserProfile = () => {
           throw new Error('User not authenticated');
         }
 
-        const response = await axios.get(`http://localhost:4000/api/auth/user/${userId}`, {
+        const response = await axios.get(`http://localhost:4000/api/users/${userId}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
 
