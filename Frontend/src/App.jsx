@@ -11,6 +11,7 @@ import AdminLogin from './pages/AdminLogin';
 import UserProfileEdit from './pages/UserProfileEdit';
 import Navbar from './components/Navbar';
 import AddEvent from './pages/AddEvent';
+import UserManagement from './pages/UserManagement';
 
 function App() {
   const location = useLocation();
@@ -33,6 +34,7 @@ function App() {
         <Route path='/event/:eventId' element={isAuthenticated ? <EventDetails /> : <Navigate to='/login' />} />
         <Route path='/user-profile-edit' element={isAuthenticated ? <UserProfileEdit /> : <Navigate to='/login' />} />
         <Route path='/add-event' element={<AddEvent/>} />
+        <Route path="/users" element={<UserManagement />} />
         <Route path='*' element={<Navigate to='/' />} /> {/* Redirect unknown routes to home */}
       </Routes>
       {!hideNavbarFooter && <Footer />}

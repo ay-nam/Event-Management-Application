@@ -1,0 +1,39 @@
+.user-management {
+    padding: 20px;
+  }
+  
+  .user-management h1 {
+    margin-bottom: 20px;
+  }
+  
+  .user-management table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .user-management th, .user-management td {
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+  
+  .user-management .delete-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .user-management .block-button {
+    background-color: orange;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .user-management .delete-button:hover,
+  .user-management .block-button:hover {
+    opacity: 0.8;
+  }
+  
