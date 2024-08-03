@@ -84,4 +84,32 @@ router.post('/:id/comment', authenticateToken, async (req, res) => {
 });
 
 
+// Add a new event
+router.post('/', authenticateToken, async (req, res) => { // New endpoint
+  const { title, description, date, time, location, organizer, image } = req.body;
+
+  // Validate the required fields
+  if (!title || !description || !date || !time || !location || !organizer) {
+    return res.status(400).json({ message: 'All fields are required' });
+  }
+
+  try {
+    const newEvent = new Event({
+      title,
+      description,
+      date,
+      time,
+      location,
+      organizer,
+      image,
+    });
+
+    const savedEvent = await newEvent.save();
+    res.status(201).json(savedEvent); // Respond with the created event
+  } catch (error) {
+    console.error('Error creating event:', error);
+    res.status(500).json({ message: 'Failed to create event.' });
+  }
+});
+
 module.exports = router;

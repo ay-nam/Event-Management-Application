@@ -19,11 +19,6 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
           </Link>
         </li>
         <li className='sidebar-list-item'>
-          <Link to="/events">
-            <BsCalendarEvent className='icon' /> Events
-          </Link>
-        </li>
-        <li className='sidebar-list-item'>
           <Link to="/add-event">
             <BsFillPlusCircleFill className='icon' /> Add Event
           </Link>
@@ -39,7 +34,7 @@ function Sidebar({ openSidebarToggle, OpenSidebar }) {
           </Link>
         </li>
         <li className='sidebar-list-item'>
-          <Link to="/logout" onClick={() => alert('Logged out')}>
+          <Link to="/admin-login" onClick={() => alert('Logged out')}>
             <BsBoxArrowRight className='icon' /> Logout
           </Link>
         </li>

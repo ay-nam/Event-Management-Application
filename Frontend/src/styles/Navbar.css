@@ -48,8 +48,9 @@
 }
 
 .navbar-links img {
-  width: 20px;
-  height: 20px;
+  width: 40px; /* Adjust size as needed */
+  height: 40px;
+  border-radius: 50%; /* Circular profile icon */
 }
 
 .navbar.visible {
@@ -64,4 +65,61 @@ body {
   margin: 0; /* Remove default margin */
   padding-top: 60px; /* Add padding to prevent content overlap with navbar */
   box-sizing: border-box;
+}
+
+/* Profile icon and dropdown */
+.profile-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0; /* Remove default padding */
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0; /* Adjusted for better alignment */
+  background-color: rgba(255, 255, 255, 0.9); /* Slightly less transparent for better readability */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  padding: 10px;
+  z-index: 1000; /* Ensure it appears above other content */
+  width: 150px; /* Increased width for better button fit */
+  display: flex;
+  flex-direction: column;
+  text-align: center; 
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+  transition: opacity 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+}
+
+.profile-wrapper:hover .dropdown-menu {
+  display: flex;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.dropdown-menu button {
+  background-color: rgba(114, 114, 243, 0.5);
+  color: #333;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  text-align: center; /* Center text */
+  margin: 5px 0;
+  font-family: 'Poppins', sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transitions */
+}
+
+.dropdown-menu button:hover {
+  background-color: #f0f0f0;
+  color: #333;
 }

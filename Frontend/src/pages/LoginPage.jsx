@@ -1,10 +1,9 @@
-// src/components/LoginPage.jsx
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaUser, FaLock } from "react-icons/fa";
+import Swal from 'sweetalert2';
 import '../styles/LoginPage.css';
-
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -29,17 +28,29 @@ const LoginPage = () => {
         email,
         password,
       });
-      console.log('Login successful:', response.data);
+      
       const token = response.data.token;  
       const decodedToken = decodeJwt(token);
       const userId = decodedToken.userId;
-      console.log(userId)
 
       localStorage.setItem('token', token);
       localStorage.setItem('userId', userId);
-      navigate('/');
+
+      Swal.fire({
+        title: 'Login Successful!',
+        text: 'You have been successfully logged in.',
+        icon: 'success',
+        confirmButtonText: 'OK'
+      }).then(() => {
+        navigate('/');
+      });
     } catch (err) {
-      setError(err.response?.data?.message || 'Invalid email or password');
+      Swal.fire({
+        title: 'Login Failed!',
+        text: err.response?.data?.message || 'Invalid email or password',
+        icon: 'error',
+        confirmButtonText: 'Try Again'
+      });
     }
   };
 
@@ -55,7 +66,6 @@ const LoginPage = () => {
       <div className='wrapper'>
         <form onSubmit={handleSubmit}>
           <h1>Login</h1>
-          {error && <p className="error">{error}</p>}
           <div className="input-box">
             <input
               type="email"

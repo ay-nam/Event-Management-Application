@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import CommentModal from './Comment'; // Correct import path
+import Swal from 'sweetalert2'; // Import SweetAlert2
 import '../styles/HomePage.css';
-
-
 
 // Function to decode JWT
 const decodeJwt = (token) => {
@@ -16,8 +15,6 @@ const decodeJwt = (token) => {
   return JSON.parse(jsonPayload);
 };
 
-
-
 const HomePage = () => {
   const [events, setEvents] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,12 +23,12 @@ const HomePage = () => {
   const [userId, setUserId] = useState(null); // Initialize userId state
 
   useEffect(() => {
-     // Decode token to get userId
-     const token = localStorage.getItem('token');
-     if (token) {
-       const decodedToken = decodeJwt(token);
-       setUserId(decodedToken.userId); // Assuming the token has an 'id' field
-     }
+    // Decode token to get userId
+    const token = localStorage.getItem('token');
+    if (token) {
+      const decodedToken = decodeJwt(token);
+      setUserId(decodedToken.userId); // Assuming the token has an 'id' field
+    }
 
     const fetchEvents = async () => {
       try {
@@ -45,7 +42,25 @@ const HomePage = () => {
     fetchEvents();
   }, []);
 
+  const showLoginAlert = () => {
+    Swal.fire({
+      title: 'Login Required',
+      text: 'You need to be logged in to like or comment on an event.',
+      icon: 'warning',
+      confirmButtonText: 'Login'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = '/login'; // Redirect to login page
+      }
+    });
+  };
+
   const handleLike = async (id) => {
+    if (!userId) {
+      showLoginAlert();
+      return;
+    }
+
     try {
       const response = await fetch(`http://localhost:4000/api/events/${id}/like`, {
         method: 'POST',
@@ -65,6 +80,11 @@ const HomePage = () => {
   };
 
   const handleComment = (id) => {
+    if (!userId) {
+      showLoginAlert();
+      return;
+    }
+
     setSelectedEventId(id);
     setIsModalOpen(true);
   };
@@ -104,8 +124,7 @@ const HomePage = () => {
                   src={event.likedBy.includes(userId) ? "../src/assets/heart-fill.png" : "../src/assets/heart-empty.png"}
                   alt={event.likedBy.includes(userId) ? "liked" : "not liked"}
                 />
-                
-                {event.likes || 0}
+                {event.likes }
               </button>
               <button onClick={() => handleComment(event._id)}>
                 <img src="../src/assets/speech-bubble.png" alt="comment" />

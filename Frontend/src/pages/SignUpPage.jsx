@@ -4,8 +4,7 @@ import '../styles/SignUpPage.css';
 import { FaUser, FaLock, FaEnvelope, FaPhone } from "react-icons/fa";
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import Swal from 'sweetalert2';
 
 const SignUpPage = () => {
   const [name, setName] = useState('');
@@ -30,10 +29,21 @@ const SignUpPage = () => {
         password,
         confirmPassword,
       });
-      toast.success('Signup successful');
-      navigate('/login');
+      Swal.fire({
+        title: 'Success!',
+        text: 'Signup successful',
+        icon: 'success',
+        confirmButtonText: 'OK'
+      }).then(() => {
+        navigate('/login');
+      });
     } catch (err) {
-      setError(err.response?.data?.message || 'Something went wrong');
+      Swal.fire({
+        title: 'Error!',
+        text: err.response?.data?.message || 'Something went wrong',
+        icon: 'error',
+        confirmButtonText: 'Close'
+      });
     }
   };
 
@@ -103,17 +113,6 @@ const SignUpPage = () => {
           <p>Already have an account? <Link to='/login'>Login</Link></p>
         </div>
       </form>
-      <ToastContainer 
-        position="top-right" // Adjust the position as needed
-        autoClose={5000} // Auto close after 5 seconds
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
     </div>
   );
 };

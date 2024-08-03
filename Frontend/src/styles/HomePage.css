@@ -1,8 +1,13 @@
+/* src/styles/Homepage.css */
+
 .homepage {
   position: relative;
   padding: 0;
-  margin-bottom: -100px;
-  background-color: white;
+  margin-top: -60px;
+  max-height: 100vh;
+  background: url('path-to-your-background-image.jpg') no-repeat center center;
+  background-size: cover; /* Ensure the background image covers the entire element */
+  
 }
 
 .navbar {
@@ -17,21 +22,19 @@
   width: 100%; 
   height: auto;
   display: block;
-  top: 0;
-  left: 0;
-  margin-top: -60px;
+  margin-top: 0;
   z-index: 0; /* Lower z-index to place it behind the navbar */
 }
 
-.events-list {
+.homepage .events-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   padding: 20px;
-  
+  margin-top: 60px;
 }
 
-.event-card {
+.homepage .event-card {
   background: #fff;
   border: 1px solid #ddd;
   border-radius: 5px;
@@ -40,37 +43,60 @@
   width: 300px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: left;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transition for scaling and shadow */
 }
 
-.event-image {
+.homepage .event-card:hover {
+  transform: scale(1.05); /* Slightly enlarge the card on hover */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Deepen shadow on hover */
+}
+
+.homepage .event-image {
   width: 100%; /* Adjust to fit container */
   height: 200px; /* Maintain aspect ratio */
   border-radius: 5px;
   margin-bottom: 10px;
+  transition: opacity 0.3s ease; /* Smooth transition for image effects */
 }
 
-h1 {
+.homepage .event-card:hover .event-image {
+  opacity: 0.9; /* Slightly fade the image on hover */
+}
+
+.homepage h1 {
   font-family: "Playfair Display", serif;
   text-align: center;
-  margin-top: 30px;
+  margin-top: 50px;
+  color: white;
+  font-weight: 900;
 }
 
-.event-actions {
+.homepage .event-actions {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-top: 10px;
 }
 
-.event-actions button {
+.homepage .event-actions button {
   background: none;
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
+  transition: color 0.3s ease; /* Transition for color change */
 }
 
-.event-actions button img {
+.homepage .event-actions button:hover {
+  color: #007bff; /* Change color on hover */
+}
+
+.homepage .event-actions button img {
   width: 30px;
   height: 30px;
+  transition: transform 0.3s ease; /* Transition for icon scaling */
+}
+
+.homepage .event-actions button:hover img {
+  transform: scale(1.1); /* Slightly enlarge the icon on hover */
 }

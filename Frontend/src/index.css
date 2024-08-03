@@ -6,14 +6,15 @@
   box-sizing: border-box;
 }
 
+html, body {
+  height: 100%; /* Ensure the html and body take up the full height */
+}
+
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  display: flex;
-  justify-content: center;
-  align-items: center; 
 }
 
 code {
