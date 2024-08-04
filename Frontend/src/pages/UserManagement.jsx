@@ -1,36 +1,42 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 import '../styles/UserManagement.css';
-
 
 const UserManagement = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
     // Fetch users from the API
-    axios.get('/api/users')
+    axios.get('http://localhost:4000/api/users/')
       .then(response => setUsers(response.data))
       .catch(error => console.error('Error fetching users:', error));
   }, []);
 
   const handleDelete = (userId) => {
-    axios.delete(`/api/users/${userId}`)
-      .then(response => {
-        // Update the user list after deletion
-        setUsers(users.filter(user => user.id !== userId));
-      })
-      .catch(error => console.error('Error deleting user:', error));
-  };
-
-  const handleBlock = (userId) => {
-    axios.post(`/api/users/${userId}/block`)
-      .then(response => {
-        // Update the user status after blocking
-        setUsers(users.map(user => 
-          user.id === userId ? { ...user, blocked: true } : user
-        ));
-      })
-      .catch(error => console.error('Error blocking user:', error));
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(`http://localhost:4000/api/users/delete/${userId}`)
+          .then(response => {
+            // Update the user list after deletion
+            setUsers(users.filter(user => user._id !== userId));
+            Swal.fire(
+              'Deleted!',
+              'The user has been deleted.',
+              'success'
+            );
+          })
+          .catch(error => console.error('Error deleting user:', error));
+      }
+    });
   };
 
   return (
@@ -39,21 +45,26 @@ const UserManagement = () => {
       <table>
         <thead>
           <tr>
-            <th>Username</th>
+            <th>Profile Picture</th>
+            <th>Name</th>
             <th>Email</th>
+            <th>Contact Number</th>
+            <th>Number of Events Registered</th>
             <th>Status</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {users.map(user => (
-            <tr key={user.id}>
-              <td>{user.username}</td>
+          {users.filter(user => !user.isAdmin).map(user => (
+            <tr key={user._id}>
+              <td><img src={user.profilePic} alt="Profile" className="profile-pic" /></td>
+              <td>{user.name}</td>
               <td>{user.email}</td>
+              <td>{user.contactNumber}</td>
+              <td>{user.eventsRegistered}</td>
               <td>{user.blocked ? 'Blocked' : 'Active'}</td>
               <td>
-                <button onClick={() => handleDelete(user.id)} className="delete-button">Delete</button>
-                <button onClick={() => handleBlock(user.id)} className="block-button">Block</button>
+                <button onClick={() => handleDelete(user._id)} className="delete-button">Delete</button>
               </td>
             </tr>
           ))}

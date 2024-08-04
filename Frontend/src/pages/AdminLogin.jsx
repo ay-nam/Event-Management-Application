@@ -45,36 +45,45 @@ const AdminLogin = () => {
   };
 
   return (
-    <div className='wrapper'>
-      <form onSubmit={handleSubmit}>
-        <h1>Admin Login</h1>
-        <div className="input-box">
-          <input
-            type="email"
-            placeholder='Email'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <FaEnvelope className='icon' />
-        </div>
-        <div className="input-box">
-          <input
-            type="password"
-            placeholder='Password'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            autoComplete="new-password"
-          />
-          <FaLock className='icon' />
-        </div>
-        <button type="submit">Login</button>
-        <div className="signup-link">
-          <p>Don't have an account? <Link to='/signup'>Signup</Link></p>
-        </div>
-      </form>
-    </div>
+    <>
+      <nav className="navbar1">
+        <ul className="navbar1-links">
+          <li><Link to="/">User Login</Link></li>
+          <li><Link to="/admin-login">Admin Login</Link></li>
+        </ul>
+      </nav>
+
+      <div className='wrapper'>
+        <form onSubmit={handleSubmit}>
+          <h1>Admin Login</h1>
+          <div className="input-box">
+            <input
+              type="email"
+              placeholder='Email'
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <FaEnvelope className='icon' />
+          </div>
+          <div className="input-box">
+            <input
+              type="password"
+              placeholder='Password'
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              autoComplete="new-password"
+            />
+            <FaLock className='icon' />
+          </div>
+          <button type="submit">Login</button>
+          <div className="signup-link">
+            <p>Don't have an account? <Link to='/signup'>Signup</Link></p>
+          </div>
+        </form>
+      </div>
+    </>
   );
 };
 

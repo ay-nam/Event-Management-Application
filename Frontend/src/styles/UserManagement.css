@@ -1,39 +1,73 @@
 .user-management {
-    padding: 20px;
-  }
-  
-  .user-management h1 {
-    margin-bottom: 20px;
-  }
-  
-  .user-management table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .user-management th, .user-management td {
-    padding: 10px;
-    border: 1px solid #ccc;
-  }
-  
-  .user-management .delete-button {
-    background-color: red;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-  }
-  
-  .user-management .block-button {
-    background-color: orange;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-  }
-  
-  .user-management .delete-button:hover,
-  .user-management .block-button:hover {
-    opacity: 0.8;
-  }
-  
+  padding: 20px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.user-management h1 {
+  font-family: "Playfair Display", serif;
+  margin-top: 500px;
+  margin-bottom: 50px;
+  font-size: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fdfdfd;
+}
+
+.user-management table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.user-management th, .user-management td {
+  padding: 15px;
+  border: 1px solid #ccc;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.user-management th {
+  background-color: #f4f4f4;
+  color: #333;
+  font-weight: bold;
+}
+
+.user-management .profile-pic {
+  /* width: 100px;
+  height: 100px; */
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.user-management .delete-button {
+  background-color: rgb(226, 52, 52);
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.user-management .delete-button:hover {
+  background-color: darkred;
+}
+
+.user-management td {
+  vertical-align: middle;
+  background-color: #f9f9f9;
+}
+
+.user-management tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.user-management th {
+  background-color: rgba(83, 55, 155, 0.562);
+  color: white;
+}
