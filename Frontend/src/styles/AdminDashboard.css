@@ -143,20 +143,15 @@ body {
   border-radius: 5px;
 }
 
-.card:first-child {
-  background-color: #2962ff;
+.card:first-child,.card:nth-child(2) ,
+.card:nth-child(3),.card:nth-child(4){
+  background-color: rgba(122, 59, 190, 0.9); /* Semi-transparent background */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* 3D shadow effect */
+  transition: box-shadow 0.3s ease; /* Smooth transition for shadow effect */
 }
 
-.card:nth-child(2) {
-  background-color: #ff6d00;
-}
-
-.card:nth-child(3) {
-  background-color: #2e7d32;
-}
-
-.card:nth-child(4) {
-  background-color: #d50000;
+.card:first-child:hover ,.card:nth-child(2):hover,.card:nth-child(3):hover,.card:nth-child(4):hover{
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.9); /* Enhanced shadow on hover */
 }
 
 .card-inner {
@@ -236,14 +231,19 @@ body {
 }
 
 .add-event-button {
-  background-color: #4caf50;
+  background-color: #142e66;
   color: white;
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
+  transition: box-shadow 0.3s ease; /* Smooth transition for shadow effect */
 }
 
+.add-event-button:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+}
 .event-items {
   list-style: none;
   padding: 0;
@@ -255,12 +255,16 @@ body {
   align-items: center;
   padding: 10px;
   margin: 10px 0;
-  background-color: #263043;
+  background-color: #ffffff;
   border-radius: 5px;
 }
 
 .event-info h4 {
   margin: 0;
+}
+
+.event-info p,h4{
+  color:#000000;
 }
 
 .event-actions button {
@@ -271,19 +275,19 @@ body {
   cursor: pointer;
 }
 
-.edit-button {
-  background-color: #ff9800;
+.event-actions .edit-button {
+  background-color: rgba(114, 114, 243, 0.5);
   color: white;
 }
 
 .delete-button {
-  background-color: #f44336;
+  background-color: rgb(226, 52, 52);
   color: white;
 }
 
 .manage-users-button {
   background-color: #3f51b5;
-  color: white;
+  color: rgb(12, 12, 12);
   padding: 10px 20px;
   border: none;
   border-radius: 5px;

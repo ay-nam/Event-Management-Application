@@ -7,7 +7,6 @@ const authenticateToken = require('../middleware/authenticateToken');
 router.get('/', async (req, res) => {
   try {
     const events = await Event.find();
-    // console.log(events);
     res.json(events);
   } catch (error) {
     console.error('Error fetching events:', error); // Log the error
@@ -84,32 +83,68 @@ router.post('/:id/comment', authenticateToken, async (req, res) => {
 });
 
 
-// Add a new event
-router.post('/', authenticateToken, async (req, res) => { // New endpoint
-  const { title, description, date, time, location, organizer, image } = req.body;
 
-  // Validate the required fields
-  if (!title || !description || !date || !time || !location || !organizer) {
-    return res.status(400).json({ message: 'All fields are required' });
-  }
+// Create an event
+router.post('/create', async (req, res) => {
+  const { title, description, image, date, time, location, organizer } = req.body;
 
   try {
     const newEvent = new Event({
       title,
       description,
+      image,
       date,
       time,
       location,
       organizer,
-      image,
     });
 
     const savedEvent = await newEvent.save();
-    res.status(201).json(savedEvent); // Respond with the created event
+    res.status(201).json(savedEvent);
   } catch (error) {
-    console.error('Error creating event:', error);
-    res.status(500).json({ message: 'Failed to create event.' });
+    res.status(400).json({ message: error.message });
   }
 });
+
+
+// Update an event
+router.put('/update/:id', async (req, res) => {
+  const { id } = req.params;
+  const { title, description, image, date, time, location, organizer } = req.body;
+
+  try {
+    const updatedEvent = await Event.findByIdAndUpdate(
+      id,
+      { title, description, image, date, time, location, organizer },
+      { new: true }
+    );
+
+    if (!updatedEvent) {
+      return res.status(404).json({ message: 'Event not found' });
+    }
+
+    res.json(updatedEvent);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+// Delete an event
+router.delete('/delete/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const deletedEvent = await Event.findByIdAndDelete(id);
+
+    if (!deletedEvent) {
+      return res.status(404).json({ message: 'Event not found' });
+    }
+
+    res.json({ message: 'Event deleted successfully' });
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
 
 module.exports = router;
