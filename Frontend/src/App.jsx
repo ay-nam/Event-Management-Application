@@ -12,7 +12,7 @@ import UserProfileEdit from './pages/UserProfileEdit';
 import Navbar from './components/Navbar';
 import AddEvent from './pages/AddEvent';
 import UserManagement from './pages/UserManagement';
-
+import RegisterEvent from './pages/RegisterEvent'; 
 function App() {
   const location = useLocation();
   const hideNavbarFooter = ['/login', '/signup', '/admin-login', '/admin-dashboard'].includes(location.pathname);
@@ -35,6 +35,7 @@ function App() {
         <Route path='/user-profile-edit' element={isAuthenticated ? <UserProfileEdit /> : <Navigate to='/login' />} />
         <Route path='/add-event' element={<AddEvent/>} />
         <Route path="/users" element={<UserManagement />} />
+        <Route path="/register" element={<RegisterEvent/>} />
         <Route path='*' element={<Navigate to='/' />} /> {/* Redirect unknown routes to home */}
       </Routes>
       {!hideNavbarFooter && <Footer />}

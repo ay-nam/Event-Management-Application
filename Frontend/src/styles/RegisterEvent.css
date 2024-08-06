@@ -1,0 +1,108 @@
+body {
+    min-height: 100vh;
+    background: url('./src/assets/one.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.register-event {
+    max-width: 600px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, .2);
+    backdrop-filter: blur(50px);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+    color: #fff;
+    border-radius: 10px;
+    padding: 30px 40px;
+    margin: 20px auto;
+}
+
+.register-event h1 {
+    font-size: 32px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.register-event .form-group {
+    margin-bottom: 20px;
+}
+
+.register-event label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 5px;
+    color: #fff;
+}
+
+.register-event input,
+.register-event textarea {
+    width: 100%;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, .2);
+    outline: none;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #fff;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.register-event input::placeholder,
+.register-event textarea::placeholder {
+    color: #fff;
+}
+
+.register-event .submit-button {
+    width: 100%;
+    height: 45px;
+    background: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, -1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    font-weight: 700;
+    margin-top: 20px;
+}
+
+.register-event .success-message,
+.register-event .error-message {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #fff;
+}
+
+.register-event .success-message {
+    border-color: #28a745;
+    color: #28a745;
+}
+
+.register-event .error-message {
+    border-color: #dc3545;
+    color: #dc3545;
+}
+.submit-button {
+    width: 100%;
+    height: 45px;
+    background: #fff;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    font-weight: 700;
+    margin-top: 20px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.submit-button:hover {
+    background-color: #333;
+    color: #fff;
+}
