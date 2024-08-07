@@ -78,9 +78,6 @@ const AdminLogin = () => {
             <FaLock className='icon' />
           </div>
           <button type="submit">Login</button>
-          <div className="signup-link">
-            <p>Don't have an account? <Link to='/signup'>Signup</Link></p>
-          </div>
         </form>
       </div>
     </>

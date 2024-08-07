@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import CommentModal from './Comment'; // Correct import path
+import CommentModal from './CommentModal'; // Correct import path
 import Swal from 'sweetalert2'; // Import SweetAlert2
 import '../styles/HomePage.css';
 
@@ -128,6 +128,7 @@ const HomePage = () => {
               </button>
               <button onClick={() => handleComment(event._id)}>
                 <img src="../src/assets/speech-bubble.png" alt="comment" />
+                {event.commentCount} {/* Display the comment count */}
               </button>
               <button>
                 <Link to={`/event/${event._id}`} className="button">
